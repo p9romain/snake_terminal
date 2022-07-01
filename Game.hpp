@@ -2,11 +2,13 @@
 #define GAME_HPP
 
   #include "Board.hpp"
+  #include "Apple.hpp"
 
   class Game
   {
     public :
       Game(int h, int w) ;
+      ~Game() ;
 
 
       void input() ;
@@ -20,6 +22,7 @@
     private :
       Board bd ;
       bool game_over ;
+      Apple* apple ;
   } ;
 
 #endif // GAME_HPP

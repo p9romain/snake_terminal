@@ -6,7 +6,7 @@
   class Apple : public Draw
   {
     public :
-      Apple(int Y, int X): y{Y}, x{X}, icon{'@'} {}
+      Apple(int y, int x): Draw(y, x, '@') {}
   
     protected :
       

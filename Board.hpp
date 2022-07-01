@@ -21,9 +21,9 @@
       void clear() ;
       void refresh() ;
 
-      chtype getInput() ;
-
       void getEmptyCoord(int &y, int &x) ;
+      
+      chtype getInput() ;
 
     protected :
 

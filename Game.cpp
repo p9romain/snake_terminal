@@ -3,13 +3,20 @@
 
 #include "Game.hpp"
 #include "Board.hpp"
-#include "Draw.hpp"
+#include "Empty.hpp"
+#include "Apple.hpp"
 
 Game::Game(int h, int w) : bd{Board(h, w)}, game_over{false}
 {
+  this->apple = nullptr ;
   this->bd.init() ;
 
-  std::srand(time(nullptr)) ;
+  std::srand(time_t(nullptr)) ;
+}
+
+Game::~Game()
+{
+  delete this->apple ;
 }
 
 void Game::input()
@@ -19,7 +26,16 @@ void Game::input()
 
 void Game::update()
 {
-  this->bd.add(Draw(3, 3, 'X')) ;
+  int y, x ;
+  this->bd.getEmptyCoord(y, x) ;
+
+  if ( apple != nullptr )
+  {
+    this->bd.add( Empty(this->apple->getY(), this->apple->getX()) ) ;
+  }
+
+  this->apple = new Apple(y, x) ;
+  this->bd.add(*(this->apple)) ;
 }
 
 void Game::redraw()

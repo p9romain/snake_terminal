@@ -5,7 +5,7 @@ LDFLAGS = -lncurses
 EXEC_FILES = main
 SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
-HDR = $(SRC:.cpp=.hpp)
+HDR = $(filter-out main.hpp, $(SRC:.cpp=.hpp))
 
 ARGS = $(filter-out $@, $(MAKECMDGOALS))
 

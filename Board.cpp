@@ -1,4 +1,5 @@
 #include <ncurses.h>
+#include <cstdlib>
 
 #include "Board.hpp"
 #include "Draw.hpp"
@@ -43,12 +44,16 @@ void Board::refresh()
   wrefresh(this->bd_win) ;
 }
 
+void Board::getEmptyCoord(int &y, int &x)
+{
+  do
+  {
+    y = std::rand() % this->height ;
+    x = std::rand() % this->width ;
+  } while ( mvwinch(this->bd_win, y, x) != ' ' ) ;
+}
+
 chtype Board::getInput()
 {
   return wgetch(this->bd_win) ;
-}
-
-void Board::getEmptyCoord(int &y, int &x)
-{
-  while(mvwinch(this->bd_win, rand() % (this->height), rand() % (this->width)) != ' ') ;
 }
