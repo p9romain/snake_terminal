@@ -12,6 +12,7 @@
 
       int getY() ;
       int getX() ;
+      
       chtype getIcon() ;
   
     protected :

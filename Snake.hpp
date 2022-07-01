@@ -32,11 +32,15 @@
       Snake() : dir{DIRECTION::UP} {}
 
 
+      DIRECTION getDir() ;
+      void setDir(DIRECTION d) ;
+
       void addPiece(SnakePiece sp) ;
       void removePiece() ;
 
       SnakePiece tail() ;
       SnakePiece head() ;
+      SnakePiece nextHead() ;
   
     protected :
       
