@@ -28,6 +28,9 @@
 
   class Snake
   {
+    std::queue<SnakePiece> body ;
+    DIRECTION dir ;
+
     public :
       Snake() : dir{DIRECTION::UP} {}
 
@@ -46,8 +49,8 @@
       
   
     private :
-      std::queue<SnakePiece> body ;
-      DIRECTION dir ;
+
+
   } ;
 
 #endif // SNAKE_HPP

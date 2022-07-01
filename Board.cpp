@@ -10,6 +10,8 @@ Board::Board(int h, int w) : height{h}, width{w}
   getmaxyx(stdscr, yMax, xMax) ;
 
   this->bd_win = newwin(h, w, (yMax - h)/2 - 1, (xMax - w)/2) ;
+
+  wtimeout(this->bd_win, 1000) ;
 }
 
 void Board::init()

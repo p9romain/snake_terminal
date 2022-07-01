@@ -22,18 +22,18 @@ void Snake::removePiece()
 
 SnakePiece Snake::tail()
 {
-  return this->body.back() ;
+  return this->body.front() ;
 }
 
 SnakePiece Snake::head()
 {
-  return this->body.front() ;
+  return this->body.back() ;
 }
 
 SnakePiece Snake::nextHead()
 {
-  int y = (*this).head().getX() ;
-  int x = (*this).head().getY() ;
+  int y = (*this).head().getY() ;
+  int x = (*this).head().getX() ;
 
   switch (this->dir)
   {

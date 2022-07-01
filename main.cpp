@@ -1,16 +1,14 @@
 #include <ncurses.h>
 
+#include "params.hpp"
 #include "Game.hpp"
-
-#define HEIGHT 20
-#define WIDTH 50
 
 int main( int argc, char **argv )
 {
   initscr() ;
   refresh() ;
-
   noecho() ;
+  curs_set(0) ;
 
   Game game(HEIGHT, WIDTH) ;
 

@@ -3,9 +3,15 @@
 
   #include "Board.hpp"
   #include "Apple.hpp"
+  #include "Snake.hpp"
 
   class Game
   {
+    Board bd ;
+    bool game_over ;
+    Apple* apple ;
+    Snake snake ;
+
     public :
       Game(int h, int w) ;
       ~Game() ;
@@ -19,10 +25,10 @@
 
     protected :
 
+
     private :
-      Board bd ;
-      bool game_over ;
-      Apple* apple ;
+
+
   } ;
 
 #endif // GAME_HPP

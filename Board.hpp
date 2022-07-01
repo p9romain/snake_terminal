@@ -7,6 +7,9 @@
 
   class Board
   {
+    WINDOW* bd_win ;
+    int height, width ;
+    
     public :
       Board() : Board(0, 0) {}
       Board(int h, int w) ;
@@ -28,8 +31,8 @@
     protected :
 
     private :
-      WINDOW* bd_win ;
-      int height, width ;
+
+
   } ;
 
 #endif // BOARD_HPP
