@@ -1,14 +1,15 @@
 #include <ncurses.h>
+#include <cstdlib>
 
-#include "Board.hpp"
 #include "Game.hpp"
+#include "Board.hpp"
+#include "Draw.hpp"
 
-Game::Game(int h, int w)
+Game::Game(int h, int w) : bd{Board(h, w)}, game_over{false}
 {
-  this->bd = Board(h, w) ;
   this->bd.init() ;
 
-  this->game_over = false ;
+  std::srand(time(nullptr)) ;
 }
 
 void Game::input()
@@ -18,15 +19,13 @@ void Game::input()
 
 void Game::update()
 {
-  
+  this->bd.add(Draw(3, 3, 'X')) ;
 }
-
 
 void Game::redraw()
 {
   this->bd.refresh() ;
 }
-
 
 bool Game::isOver()
 {

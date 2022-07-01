@@ -5,6 +5,7 @@ LDFLAGS = -lncurses
 EXEC_FILES = main
 SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
+HDR = $(SRC:.cpp=.hpp)
 
 ARGS = $(filter-out $@, $(MAKECMDGOALS))
 
@@ -22,7 +23,7 @@ main: $(OBJ)
 
 
 # Headers
-main: Game.hpp
+main: $(HDR)
 
 
 # Utilities

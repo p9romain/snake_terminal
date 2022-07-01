@@ -2,8 +2,8 @@
 
 #include "Game.hpp"
 
-#define HEIGHT 12
-#define WIDTH 30
+#define HEIGHT 20
+#define WIDTH 50
 
 int main( int argc, char **argv )
 {

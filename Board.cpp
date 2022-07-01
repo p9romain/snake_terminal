@@ -1,13 +1,14 @@
 #include <ncurses.h>
 
 #include "Board.hpp"
+#include "Draw.hpp"
 
-Board::Board(int h, int w)
+Board::Board(int h, int w) : height{h}, width{w}
 {
   int xMax, yMax ;
   getmaxyx(stdscr, yMax, xMax) ;
 
-  this->bd_win = newwin(h, w, (yMax - h)/2, (xMax - w)/2) ;
+  this->bd_win = newwin(h, w, (yMax - h)/2 - 1, (xMax - w)/2) ;
 }
 
 void Board::init()
@@ -19,6 +20,11 @@ void Board::init()
 void Board::addBorder()
 {
   box(this->bd_win, 0, 0) ;
+}
+
+void Board::add(Draw d)
+{
+  (*this).addAt(d.getY(), d.getX(), d.getIcon()) ;
 }
 
 void Board::addAt(int y, int x, chtype c)
@@ -40,4 +46,9 @@ void Board::refresh()
 chtype Board::getInput()
 {
   return wgetch(this->bd_win) ;
+}
+
+void Board::getEmptyCoord(int &y, int &x)
+{
+  while(mvwinch(this->bd_win, rand() % (this->height), rand() % (this->width)) != ' ') ;
 }

@@ -1,14 +1,13 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-  #include <ncurses.h>
-
   #include "Board.hpp"
 
   class Game
   {
     public :
       Game(int h, int w) ;
+
 
       void input() ;
       void update() ;
