@@ -8,13 +8,15 @@
   class Board
   {
     WINDOW* bd_win ;
-    int height, width ;
+    int height, width, row, col ;
     
     public :
-      Board() : Board(0, 0) {}
-      Board(int h, int w) ;
+      Board() : Board(0, 0, 300) {}
+      Board(int h, int w, int speed) ;
 
 
+      int getStartRow() ;
+      int getStartCol() ;
       chtype getCharAt(int y, int x) ;
 
       void init() ;

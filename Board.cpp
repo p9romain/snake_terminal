@@ -4,16 +4,29 @@
 #include "Board.hpp"
 #include "Draw.hpp"
 
-Board::Board(int h, int w) : height{h}, width{w}
+Board::Board(int h, int w, int speed) : height{h}, width{w}
 {
   int xMax, yMax ;
   getmaxyx(stdscr, yMax, xMax) ;
 
-  this->bd_win = newwin(h, w, (yMax - h)/2 - 1, (xMax - w)/2) ;
+  this->row = (yMax - h)/2 ;
+  this->col = (xMax - w)/2 ;
 
-  wtimeout(this->bd_win, 1000) ;
+  this->bd_win = newwin(h, w, this->row, this->col) ;
+
+  this->setTO(speed) ;
 
   keypad(this->bd_win, true) ;
+}
+
+int Board::getStartRow()
+{
+  return this->row ;
+}
+
+int Board::getStartCol()
+{
+  return this->col ;
 }
 
 chtype Board::getCharAt(int y, int x)

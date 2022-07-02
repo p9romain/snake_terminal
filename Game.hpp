@@ -4,6 +4,7 @@
   #include "Board.hpp"
   #include "Apple.hpp"
   #include "Snake.hpp"
+  #include "Score.hpp"
 
   class Game
   {
@@ -12,10 +13,15 @@
     Apple* apple ;
     Snake snake ;
 
+    Scoreboard sb ;
+    int score ;
+
     public :
-      Game(int h, int w) ;
+      Game(int h, int w, int speed) ;
       ~Game() ;
 
+
+      int getScore() ;
 
       void input() ;
       void update() ;
@@ -30,7 +36,7 @@
       void handleNextPiece(SnakePiece p) ;
 
       void createApple() ;
-      void destroyApple() ;
+      void eatApple() ;
 
   } ;
 

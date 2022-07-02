@@ -7,13 +7,19 @@
 #include "Snake.hpp"
 #include "Empty.hpp"
 #include "Apple.hpp"
+#include "Score.hpp"
 
-Game::Game(int h, int w) : bd{Board(h, w)}, game_over{false}
+Game::Game(int h, int w, int speed) : bd{Board(h, w, speed)}, game_over{false}, score{0}
 {
   std::srand(time_t(nullptr)) ;
 
+  int sb_row = this->bd.getStartRow() + h ; 
+  int sb_col = this->bd.getStartCol() ;
+  this->sb = Scoreboard(w, sb_row, sb_col) ;
+
   this->apple = nullptr ;
   this->bd.init() ;
+  this->sb.init() ;
 
   int n = std::min((HEIGHT*WIDTH)/250, HEIGHT/2 - 2) ;
 
@@ -33,6 +39,11 @@ Game::Game(int h, int w) : bd{Board(h, w)}, game_over{false}
 Game::~Game()
 {
   delete this->apple ;
+}
+
+int Game::getScore()
+{
+  return this->score ;
 }
 
 void Game::input()
@@ -76,11 +87,17 @@ void Game::input()
     case 'P' :
     {
       this->bd.setTO(-1) ;
+      
+      // add pause text
+      
       while ( this->bd.getInput() != 'p' and this->bd.getInput() != 'P' )
       {
 
       }
-      this->bd.setTO(1000) ;
+
+      // clear pause text
+
+      this->bd.setTO(SPEED) ;
       break ;
     }
   }
@@ -99,6 +116,7 @@ void Game::update()
 void Game::redraw()
 {
   this->bd.refresh() ;
+  this->sb.refresh() ;
 }
 
 bool Game::isOver()
@@ -116,7 +134,7 @@ void Game::handleNextPiece(SnakePiece p)
     {
       case '@' :
       {
-        (*this).destroyApple() ;
+        (*this).eatApple() ;
         break ;
       }
     
@@ -149,8 +167,11 @@ void Game::createApple()
   this->bd.add(*(this->apple)) ;
 }
 
-void Game::destroyApple()
+void Game::eatApple()
 {
   delete this->apple ;
   this->apple = nullptr ;
+
+  this->score += 50 ;
+  this->sb.update(this->score) ;
 }
