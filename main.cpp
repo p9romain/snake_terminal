@@ -1,7 +1,7 @@
 #include <ncurses.h>
 
-#include "params.hpp"
 #include "Game.hpp"
+#include "params.hpp"
 
 int main( int argc, char **argv )
 {

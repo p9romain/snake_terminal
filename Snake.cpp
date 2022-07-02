@@ -7,7 +7,10 @@ DIRECTION Snake::getDir()
 
 void Snake::setDir(DIRECTION d)
 {
-  this->dir = d ;
+  if ( this->dir + d != 0 )
+  {
+    this->dir = d ;
+  }
 }
 
 void Snake::addPiece(SnakePiece p)

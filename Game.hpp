@@ -27,7 +27,10 @@
 
 
     private :
+      void handleNextPiece(SnakePiece p) ;
 
+      void createApple() ;
+      void destroyApple() ;
 
   } ;
 

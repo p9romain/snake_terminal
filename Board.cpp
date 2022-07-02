@@ -12,6 +12,13 @@ Board::Board(int h, int w) : height{h}, width{w}
   this->bd_win = newwin(h, w, (yMax - h)/2 - 1, (xMax - w)/2) ;
 
   wtimeout(this->bd_win, 1000) ;
+
+  keypad(this->bd_win, true) ;
+}
+
+chtype Board::getCharAt(int y, int x)
+{
+  return mvwinch(this->bd_win, y, x) ;
 }
 
 void Board::init()
@@ -53,6 +60,11 @@ void Board::getEmptyCoord(int &y, int &x)
     y = std::rand() % this->height ;
     x = std::rand() % this->width ;
   } while ( mvwinch(this->bd_win, y, x) != ' ' ) ;
+}
+
+void Board::setTO(int t)
+{
+  wtimeout(this->bd_win, t) ;
 }
 
 chtype Board::getInput()

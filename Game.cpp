@@ -1,10 +1,10 @@
-#include <ncurses.h>
 #include <cstdlib>
+#include <ncurses.h>
 
 #include "Game.hpp"
 #include "Board.hpp"
-#include "Snake.hpp"
 #include "params.hpp"
+#include "Snake.hpp"
 #include "Empty.hpp"
 #include "Apple.hpp"
 
@@ -15,19 +15,18 @@ Game::Game(int h, int w) : bd{Board(h, w)}, game_over{false}
   this->apple = nullptr ;
   this->bd.init() ;
 
-  SnakePiece next((HEIGHT)/2 + 3, WIDTH/2 - 1) ;
+  int n = std::min((HEIGHT*WIDTH)/250, HEIGHT/2 - 2) ;
 
-  for ( int i = 0 ; i < 4 ; i++ )   
+  (*this).handleNextPiece(SnakePiece(HEIGHT/2 + n - 1, WIDTH/2 - 1)) ;
+  
+  for ( int i = 1 ; i < n ; i++ )
   {
-    this->bd.add(next) ;
-    this->snake.addPiece(next) ;
+    (*this).handleNextPiece(this->snake.nextHead()) ;
+  }
 
-    if ( i == 3 )
-    {
-      break ;
-    }
-
-    next = this->snake.nextHead() ;
+  if ( this->apple == nullptr )
+  {
+    (*this).createApple() ;
   }
 }
 
@@ -39,30 +38,62 @@ Game::~Game()
 void Game::input()
 {
   chtype input = this->bd.getInput() ;
+  switch (input)
+  {
+    case KEY_UP :
+    case 'z' :
+    case 'Z' :
+    {
+      this->snake.setDir(DIRECTION::UP) ;
+      break ;
+    }
+  
+    case KEY_DOWN :
+    case 's' :
+    case 'S' :
+    {
+      this->snake.setDir(DIRECTION::DOWN) ;
+      break ;
+    }
+  
+    case KEY_LEFT :
+    case 'q' :
+    case 'Q' :
+    {
+      this->snake.setDir(DIRECTION::LEFT) ;
+      break ;
+    }
+  
+    case KEY_RIGHT :
+    case 'd' :
+    case 'D' :
+    {
+      this->snake.setDir(DIRECTION::RIGHT) ;
+      break ;
+    }
+
+    case 'p' :
+    case 'P' :
+    {
+      this->bd.setTO(-1) ;
+      while ( this->bd.getInput() != 'p' and this->bd.getInput() != 'P' )
+      {
+
+      }
+      this->bd.setTO(1000) ;
+      break ;
+    }
+  }
 }
 
 void Game::update()
 {
-  if ( apple == nullptr )
+  (*this).handleNextPiece(this->snake.nextHead()) ;
+
+  if ( this->apple == nullptr )
   {
-    int y, x ;
-    this->bd.getEmptyCoord(y, x) ;
-    this->apple = new Apple(y, x) ;
-    this->bd.add(*(this->apple)) ;
+    (*this).createApple() ;
   }
-
-  SnakePiece next = this->snake.nextHead() ;
-  if ( next.getX() != this->apple->getX() and next.getY() != this->apple->getY() )
-  {
-    int emptyX = this->snake.tail().getX() ;
-    int emptyY = this->snake.tail().getY() ;
-
-    this->bd.add( Empty(emptyY, emptyX) ) ;
-    this->snake.removePiece() ;
-  }
-
-  this->bd.add(next) ;
-  this->snake.addPiece(next) ;
 }
 
 void Game::redraw()
@@ -73,4 +104,53 @@ void Game::redraw()
 bool Game::isOver()
 {
   return this->game_over ;
+}
+
+
+
+void Game::handleNextPiece(SnakePiece p)
+{
+  if ( this->apple != nullptr )
+  {
+    switch ( this->bd.getCharAt(p.getY(), p.getX()) )
+    {
+      case '@' :
+      {
+        (*this).destroyApple() ;
+        break ;
+      }
+    
+      case ' ' :
+      {
+        int emptyX = this->snake.tail().getX() ;
+        int emptyY = this->snake.tail().getY() ;
+
+        this->bd.add( Empty(emptyY, emptyX) ) ;
+        this->snake.removePiece() ;
+        break ;
+      }
+
+      default :
+      {
+        this->game_over = true ;
+      }
+    }
+  }
+
+  this->bd.add(p) ;
+  this->snake.addPiece(p) ;
+}
+
+void Game::createApple()
+{
+  int y, x ;
+  this->bd.getEmptyCoord(y, x) ;
+  this->apple = new Apple(y, x) ;
+  this->bd.add(*(this->apple)) ;
+}
+
+void Game::destroyApple()
+{
+  delete this->apple ;
+  this->apple = nullptr ;
 }

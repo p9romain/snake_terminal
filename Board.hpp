@@ -15,6 +15,8 @@
       Board(int h, int w) ;
 
 
+      chtype getCharAt(int y, int x) ;
+
       void init() ;
 
       void addBorder() ;
@@ -25,6 +27,8 @@
       void refresh() ;
 
       void getEmptyCoord(int &y, int &x) ;
+
+      void setTO(int t) ;
       
       chtype getInput() ;
 
