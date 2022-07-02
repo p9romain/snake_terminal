@@ -3,6 +3,8 @@ CXXFLAGS = -g -W -Wall -std=c++2a -O3
 
 LDFLAGS = -lncurses
 EXEC_FILES = main
+DATA = $(wildcard .*.data)
+
 SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
 HDR = $(filter-out main.hpp, $(SRC:.cpp=.hpp))
@@ -33,3 +35,6 @@ all: clear main
 
 clean clear:
 	@rm -f $(OBJ) $(EXEC_FILES)
+
+reset: clean
+	@rm -f $(DATA)
