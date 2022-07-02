@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <fstream>
 #include <ncurses.h>
 
 #include "Game.hpp"
@@ -9,7 +10,7 @@
 #include "Apple.hpp"
 #include "Score.hpp"
 
-Game::Game(int h, int w, int speed) : bd{Board(h, w, speed)}, game_over{false}, score{0}
+Game::Game(int h, int w, int speed) : bd{Board(h, w, speed)}, game_over{false}, score{0}, highscore( (*this).readHighscore() )
 {
   std::srand(time_t(nullptr)) ;
 
@@ -19,7 +20,7 @@ Game::Game(int h, int w, int speed) : bd{Board(h, w, speed)}, game_over{false}, 
 
   this->apple = nullptr ;
   this->bd.init() ;
-  this->sb.init() ;
+  this->sb.init(this->highscore) ;
 
   int n = std::min((HEIGHT*WIDTH)/250, HEIGHT/2 - 2) ;
 
@@ -41,10 +42,39 @@ Game::~Game()
   delete this->apple ;
 }
 
+int Game::readHighscore()
+{
+  int high = 0 ;
+
+  std::ifstream file(".highscore.data", std::ifstream::in) ;
+
+  if ( file )
+  {
+    file >> high ;
+  }
+  
+  file.close() ;
+
+  return high ;
+}
+
+int Game::getHighscore()
+{
+  return this->highscore ;
+}
+
 int Game::getScore()
 {
   return this->score ;
 }
+
+void Game::saveHighscore()
+{
+  std::ofstream file(".highscore.data", std::ofstream::trunc) ;
+  file << this->highscore ;
+  file.close() ;
+}
+
 
 void Game::input()
 {
@@ -173,5 +203,9 @@ void Game::eatApple()
   this->apple = nullptr ;
 
   this->score += 50 ;
-  this->sb.update(this->score) ;
+  if ( this->score > this->highscore )
+  {
+    this->highscore = this->score ;
+  }
+  this->sb.update(this->score, this->highscore) ;
 }

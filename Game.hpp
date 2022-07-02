@@ -15,13 +15,18 @@
 
     Scoreboard sb ;
     int score ;
+    int highscore ;
 
     public :
       Game(int h, int w, int speed) ;
       ~Game() ;
 
 
+      int readHighscore() ;
+      int getHighscore() ;
       int getScore() ;
+
+      void saveHighscore() ;
 
       void input() ;
       void update() ;

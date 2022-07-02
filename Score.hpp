@@ -12,8 +12,8 @@
       Scoreboard(int w, int y, int x) ;
 
 
-      void init() ;
-      void update(int score) ;
+      void init(int highscore) ;
+      void update(int score, int highscore) ;
       void clear() ;
       void refresh() ;
   
