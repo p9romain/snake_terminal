@@ -1,16 +1,16 @@
 #include "Draw.hpp"
 
-int Draw::getY()
+int Draw::getY() const
 {
   return this->y ;
 }
 
-int Draw::getX()
+int Draw::getX() const
 {
   return this->x ;
 }
 
-chtype Draw::getIcon()
+chtype Draw::getIcon() const
 {
   return this->icon ;
 }

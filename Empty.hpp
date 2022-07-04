@@ -6,7 +6,7 @@
   class Empty : public Draw
   {
     public :
-      Empty(int y, int x): Draw(y, x, ' ') {}
+      Empty(const int y, const int x): Draw(y, x, ' ') {}
   
     protected :
       

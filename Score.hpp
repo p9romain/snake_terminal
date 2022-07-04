@@ -9,13 +9,13 @@
   
     public :
       Scoreboard() ;
-      Scoreboard(int w, int y, int x) ;
+      Scoreboard(const int w, const int y, const int x) ;
 
 
-      void init(int highscore) ;
-      void update(int score, int highscore) ;
-      void clear() ;
-      void refresh() ;
+      void init(const int highscore) const ;
+      void update(const int score, const int highscore) const ;
+      void clear() const ;
+      void refresh() const ;
   
     protected :
       

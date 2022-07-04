@@ -18,27 +18,27 @@
     int highscore ;
 
     public :
-      Game(int h, int w, int speed) ;
+      Game(const int h, const int w, const int speed) ;
       ~Game() ;
 
 
-      int readHighscore() ;
-      int getHighscore() ;
-      int getScore() ;
+      int readHighscore() const ;
+      int getHighscore() const ;
+      int getScore() const ;
 
-      void saveHighscore() ;
+      void saveHighscore() const ;
 
       void input() ;
       void update() ;
-      void redraw() ;
+      void redraw() const ;
 
-      bool isOver() ;
+      bool isOver() const ;
 
     protected :
 
 
     private :
-      void handleNextPiece(SnakePiece p) ;
+      void handleNextPiece(const SnakePiece p) ;
 
       void createApple() ;
       void eatApple() ;

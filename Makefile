@@ -43,9 +43,3 @@ clean clear:
 
 reset: clean
 	@rm -f $(DATA)
-
-git : clean
-	@git add .
-	@git rm -f $(DATA)
-	@git commit -m $(ARGS)
-	@git push

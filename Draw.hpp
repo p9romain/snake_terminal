@@ -7,13 +7,12 @@
   {
     public :
       Draw() : Draw(0, 0, ' ') {}
-      Draw(int Y, int X, chtype chr) : y{Y}, x{X}, icon{chr} {}
+      Draw(const int Y, const int X, const chtype chr) : y{Y}, x{X}, icon{chr} {}
 
 
-      int getY() ;
-      int getX() ;
-      
-      chtype getIcon() ;
+      int getY() const ;
+      int getX() const ;
+      chtype getIcon() const ;
   
     protected :
       int y, x ;

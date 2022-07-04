@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <ncurses.h>
 #include <iostream>
 
@@ -6,6 +7,8 @@
 
 int main( int argc, char **argv )
 {
+  std::srand(time_t(nullptr)) ;
+
   initscr() ;
   refresh() ;
   noecho() ;

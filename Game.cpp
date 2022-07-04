@@ -1,4 +1,3 @@
-#include <cstdlib>
 #include <fstream>
 #include <ncurses.h>
 
@@ -10,10 +9,8 @@
 #include "Apple.hpp"
 #include "Score.hpp"
 
-Game::Game(int h, int w, int speed) : bd{Board(h, w, speed)}, game_over{false}, score{0}, highscore( (*this).readHighscore() )
+Game::Game(const int h, const int w, const int speed) : bd{Board(h, w, speed)}, game_over{false}, score{0}, highscore( (*this).readHighscore() )
 {
-  std::srand(time_t(nullptr)) ;
-
   int sb_row = this->bd.getStartRow() + h ; 
   int sb_col = this->bd.getStartCol() ;
   this->sb = Scoreboard(w, sb_row, sb_col) ;
@@ -42,7 +39,7 @@ Game::~Game()
   delete this->apple ;
 }
 
-int Game::readHighscore()
+int Game::readHighscore() const
 {
   int high = 0 ;
 
@@ -58,17 +55,17 @@ int Game::readHighscore()
   return high ;
 }
 
-int Game::getHighscore()
+int Game::getHighscore() const
 {
   return this->highscore ;
 }
 
-int Game::getScore()
+int Game::getScore() const
 {
   return this->score ;
 }
 
-void Game::saveHighscore()
+void Game::saveHighscore() const
 {
   std::ofstream file(".highscore.data", std::ofstream::trunc) ;
   file << this->highscore ;
@@ -143,20 +140,20 @@ void Game::update()
   }
 }
 
-void Game::redraw()
+void Game::redraw() const
 {
   this->bd.refresh() ;
   this->sb.refresh() ;
 }
 
-bool Game::isOver()
+bool Game::isOver() const
 {
   return this->game_over ;
 }
 
 
 
-void Game::handleNextPiece(SnakePiece p)
+void Game::handleNextPiece(const SnakePiece p)
 {
   if ( this->apple != nullptr )
   {

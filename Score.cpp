@@ -7,12 +7,12 @@ Scoreboard::Scoreboard()
 
 }
 
-Scoreboard::Scoreboard(int w, int y, int x)
+Scoreboard::Scoreboard(const int w, const int y, const int x)
 {
   this->sc_win = newwin(2, w, y, w) ;
 }
 
-void Scoreboard::init(int highscore)
+void Scoreboard::init(const int highscore) const
 {
   (*this).clear() ;
   mvwprintw(this->sc_win, 0, 0, "Score :") ;
@@ -21,18 +21,18 @@ void Scoreboard::init(int highscore)
   (*this).refresh() ;
 }
 
-void Scoreboard::update(int score, int highscore)
+void Scoreboard::update(const int score, const int highscore) const
 {
   mvwprintw(this->sc_win, 0, this->sc_win->_maxx - 10, "%11llu", score) ;
   mvwprintw(this->sc_win, 1, this->sc_win->_maxx - 10, "%11llu", highscore) ;
 }
 
-void Scoreboard::clear()
+void Scoreboard::clear() const
 {
   wclear(this->sc_win) ;
 }
 
-void Scoreboard::refresh()
+void Scoreboard::refresh() const
 {
   wrefresh(this->sc_win) ;
 }
