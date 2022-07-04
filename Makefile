@@ -14,19 +14,24 @@ ARGS = $(filter-out $@, $(MAKECMDGOALS))
 BIN_CMD = $(CXX) $(CXXFLAGS) -c $<
 EXE_CMD = $(CXX) $(LDFLAGS) -o $@ $^ 
 
+#------------------------------------------------------------------------------------
+
 # Binary files
 %.o: %.cpp
 	@$(BIN_CMD)
 
+#------------------------------
 
 # Executive files
 main: $(OBJ)
 	@$(EXE_CMD)
 
+#------------------------------
 
 # Headers
 main: $(HDR)
 
+#------------------------------
 
 # Utilities
 all: clear main
@@ -38,3 +43,9 @@ clean clear:
 
 reset: clean
 	@rm -f $(DATA)
+
+git : clean
+	@git add .
+	@git rm -f .highscore.data
+	@git commit -m $(ARGS)
+	@git push

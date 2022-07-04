@@ -12,28 +12,26 @@
     
     public :
       Board() : Board(0, 0, 300) {}
-      Board(int h, int w, int speed) ;
+      Board(const int h, const int w, const int speed) ;
 
 
-      int getStartRow() ;
-      int getStartCol() ;
-      chtype getCharAt(int y, int x) ;
+      int getStartRow() const ;
+      int getStartCol() const ;
+      chtype getCharAt(const int y, const int x) const ;
+      void getEmptyCoord(int &y, int &x) const ;
+      chtype getInput() const ;
 
-      void init() ;
+      void setTO(const int t) const ;
 
-      void addBorder() ;
-      void add(Draw d) ;
-      void addAt(int y, int x, chtype c) ;
+      void init() const ;
 
-      void clear() ;
-      void refresh() ;
+      void addBorder() const ;
+      void add(Draw d) const ;
+      void addAt(const int y, const int x, const chtype c) const ;
 
-      void getEmptyCoord(int &y, int &x) ;
-
-      void setTO(int t) ;
+      void clear() const ;
+      void refresh() const ;
       
-      chtype getInput() ;
-
     protected :
 
     private :

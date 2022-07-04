@@ -4,7 +4,7 @@
 #include "Board.hpp"
 #include "Draw.hpp"
 
-Board::Board(int h, int w, int speed) : height{h}, width{w}
+Board::Board(const int h, const int w, const int speed) : height{h}, width{w}
 {
   int xMax, yMax ;
   getmaxyx(stdscr, yMax, xMax) ;
@@ -19,54 +19,22 @@ Board::Board(int h, int w, int speed) : height{h}, width{w}
   keypad(this->bd_win, true) ;
 }
 
-int Board::getStartRow()
+int Board::getStartRow() const
 {
   return this->row ;
 }
 
-int Board::getStartCol()
+int Board::getStartCol() const
 {
   return this->col ;
 }
 
-chtype Board::getCharAt(int y, int x)
+chtype Board::getCharAt(const int y, const int x) const 
 {
   return mvwinch(this->bd_win, y, x) ;
 }
 
-void Board::init()
-{
-  (*this).clear() ;
-  (*this).refresh() ;
-}
-
-void Board::addBorder()
-{
-  box(this->bd_win, 0, 0) ;
-}
-
-void Board::add(Draw d)
-{
-  (*this).addAt(d.getY(), d.getX(), d.getIcon()) ;
-}
-
-void Board::addAt(int y, int x, chtype c)
-{
-  mvwaddch(this->bd_win, y, x, c) ;
-}
-
-void Board::clear()
-{
-  wclear(this->bd_win) ;
-  (*this).addBorder() ;
-}
-
-void Board::refresh()
-{
-  wrefresh(this->bd_win) ;
-}
-
-void Board::getEmptyCoord(int &y, int &x)
+void Board::getEmptyCoord(int &y, int &x) const
 {
   do
   {
@@ -75,12 +43,44 @@ void Board::getEmptyCoord(int &y, int &x)
   } while ( mvwinch(this->bd_win, y, x) != ' ' ) ;
 }
 
-void Board::setTO(int t)
+chtype Board::getInput() const
+{
+  return wgetch(this->bd_win) ;
+}
+
+void Board::setTO(const int t) const
 {
   wtimeout(this->bd_win, t) ;
 }
 
-chtype Board::getInput()
+void Board::init() const
 {
-  return wgetch(this->bd_win) ;
+  (*this).clear() ;
+  (*this).refresh() ;
+}
+
+void Board::addBorder() const
+{
+  box(this->bd_win, 0, 0) ;
+}
+
+void Board::add(Draw d) const
+{
+  (*this).addAt(d.getY(), d.getX(), d.getIcon()) ;
+}
+
+void Board::addAt(const int y, const int x, const chtype c) const
+{
+  mvwaddch(this->bd_win, y, x, c) ;
+}
+
+void Board::clear() const
+{
+  wclear(this->bd_win) ;
+  (*this).addBorder() ;
+}
+
+void Board::refresh() const
+{
+  wrefresh(this->bd_win) ;
 }
