@@ -46,6 +46,6 @@ reset: clean
 
 git : clean
 	@git add .
-	@git rm -f .highscore.data
+	@git rm -f $(DATA)
 	@git commit -m $(ARGS)
 	@git push
