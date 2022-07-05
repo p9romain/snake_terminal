@@ -7,7 +7,7 @@
 
 int main( int argc, char **argv )
 {
-  std::srand(time_t(nullptr)) ;
+  std::srand(time(nullptr)) ;
 
   initscr() ;
   refresh() ;
